@@ -5,6 +5,9 @@ iKALiZER is an "old" audio engine in the form of an external library intended pr
 I leave the source code here for informational, educational, research, and archival purposes.
 Alexia Gossa.
 
+I conceived, wrote, designed, and developed the iKALiZER audio engine under a pseudonym from early 2008 through 2016.
+The last publicly released version was dated February 12, 2011.
+
 Special notice :
 The general use license is the one indicated in the project.
 However, the FFT part is specific.
