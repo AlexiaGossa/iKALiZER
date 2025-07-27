@@ -1,0 +1,1 @@
+void    CA_HashKey ( unsigned char * pbHashValue, long lHashLen, unsigned char * pData, long lDataLen );
