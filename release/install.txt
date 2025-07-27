@@ -1,0 +1,152 @@
+####################################################################
+
+This file is part of "iKALiZER Manager".
+
+"iKALiZER Manager" is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+"iKALiZER Manager" is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with "iKALiZER Manager".
+
+If not, see <http://www.gnu.org/licenses/>.
+
+####################################################################
+
+About "iKALiZER"
+
+The audio engine iKALiZER is the property of Alexia Gossa.
+The Windows Library (DLL, AEI...) of iKALiZER could only be freely
+distributed without any restriction with ioUrbanTerror and ioQuake.
+
+Copyright (c) 2008-2009 Alexia Gossa
+All rights reserved.
+www.ikalizer.com
+
+####################################################################
+
+How to add "iKALiZER Manager" in ioUrbanTerror Visual Studio Project
+
+    1. Copy these files from "\code\client\" into ioUrbanTerror
+    "\code\client\" path :
+
+        sam.c
+        sam.h
+        sam_lib.h
+
+
+    2a. Open ioUrbanTerror source code "\code\client\snd_main.c",
+    find S_Init function like this :
+
+        void S_Init( void )
+        {
+
+    2b. After the last
+
+        Cmd_AddCommand(
+
+    and before
+
+        cv = Cvar_Get( "s_useOpenAL", "0", CVAR_ARCHIVE );
+
+    add these lines :
+
+        //  iKALiZER Manager
+        {
+            long lReturn;
+            long lInit;
+            lReturn = Cvar_Flags ( "s_useSAM" );
+            if (lReturn!=CVAR_NONEXISTENT)
+            {
+                char szTmp[16];
+                cv = Cvar_Get ( "s_useSAM", "0", CVAR_ARCHIVE );
+                lInit = cv->integer;
+                cv->flags = CVAR_TEMP;
+                
+                sprintf ( szTmp, "%d", lInit );
+                cv = Cvar_Get ( "s_useIkalizer", szTmp, CVAR_ARCHIVE );
+            }
+            else
+            {
+                cv = Cvar_Get ( "s_useIkalizer", "0", CVAR_ARCHIVE );
+            }
+        
+            if (cv->integer && (!started) )
+            {
+                started = S_SAM_Init( &si );
+                Cvar_Set( "s_backend", "IKALIZER" );
+            }
+        }
+
+
+    3. Open ioUrbanTerror source code "\code\qcommon\files.c",
+    find the line :
+   
+        static int fs_numServerPaks;
+
+    and replace it by :
+
+        int fs_numServerPaks;
+    
+
+    4. Open ioUrbanTerror source code "\code\qcommon\common.c",
+    locate the code :
+
+      do {
+          ...
+      } while ( msec < minMsec );
+      Cbuf_Execute ();
+
+    replace it by :
+
+    #ifdef _WIN32
+        {
+            long iCount;
+            iCount = 0;
+            do {
+                com_frameTime = Com_EventLoop();
+                if ( lastTime > com_frameTime ) {
+                    lastTime = com_frameTime; // possible on first frame
+                }
+                msec = com_frameTime - lastTime;
+
+                // add idle time
+                iCount = (iCount+1)&15;
+                if (iCount==15) Sleep ( 1 );
+                else if (iCount>2) Sleep ( 0 );
+            } while ( msec < minMsec );
+        }
+    #else
+        do {
+            com_frameTime = Com_EventLoop();
+            if ( lastTime > com_frameTime ) {
+                lastTime = com_frameTime; // possible on first frame
+            }
+            msec = com_frameTime - lastTime;
+        } while ( msec < minMsec );
+    #endif
+        Cbuf_Execute ();    
+
+    5. Open the Visual Studio C++ project ioUrbanTerror project, in
+    Solution Explorer, open "quake3/Source Files" folder and add
+    these files using "Add Existing Item" command :
+    
+        sam.c
+        sam.h
+        sam_lib.h
+
+    (*) Files are located in your ioUrbanTerror path \code\client\
+
+
+    6. Compile/Rebuild your project and test it.
+
+
+####################################################################
+
+                                                    Alexia Gossa
