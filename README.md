@@ -40,6 +40,7 @@ The last public release was on February 12, 2011.
 Technical Notes
 -----------
 
+* Created originally in 2008 for Windows operating system.
 * Written mainly in C, with sections in asm for performance-critical DSP routines.
 * Included a specific FFT implementation.
 * Designed to integrate with ioQuake / Urban Terror via a dynamic library system.
