@@ -34,17 +34,17 @@ The engine provided:
 * A modular and efficient C-based architecture,
 * Enhanced 3D positional audio and environmental effects,
 * Custom mixing and filtering algorithms for improved clarity,
-* Optimized for low-latency design.
+* Optimized for low-latency.
 
-The last public release was on February 12, 2011.
+The last public release was on February 12, 2011. Although development and refinements continued privately for several years afterward.
 
 Technical Notes
 -----------
 
 * Created originally in 2008 for Windows operating system.
 * Written mainly in C, with sections in asm for performance-critical DSP routines.
-* Included a specific FFT implementation.
-* Designed to integrate with ioQuake / Urban Terror via a dynamic library system.
+* Incorporated a dedicated FFT component.
+* Designed for integration with ioQuake / Urban Terror via a dynamic library system.
 * Focused on minimal CPU footprint, efficient use of hardware and high quality audio rendering.
 
 Licensing
@@ -64,6 +64,6 @@ It is kept publicly available for documentation, historical and educational purp
 Author
 -----------
 **Alexia Gossa**  
-Developer and system engineer specialized in low-level programming, optimization, and real-time systems.
-This project was developed under a former identity between 2008 and 2016.
-It represents an important part of my technical and personal journey, and I am proud to preserve it under my real name.
+
+This project was developed under a former identity between 2008 and 2016.  
+It represents an important part of my technical and personal journey, and I am proud to preserve it today under my real name.  
