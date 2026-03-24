@@ -2,6 +2,7 @@
 iKALiZER audio engine - archive only
 
 iKALiZER is an "old" audio engine in the form of an external library intended primarily for video games and which can be used by Urban Terror (and Quake 3 / ioQuake) as an alternative audio engine.
+It was developed in a context where CPU resources were much more limited than today, with an initial focus on Windows.
 I leave the source code here for informational, educational, research, and archival purposes.
 Alexia Gossa.
 
